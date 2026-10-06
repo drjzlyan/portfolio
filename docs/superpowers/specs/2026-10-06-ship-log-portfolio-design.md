@@ -86,15 +86,14 @@ type Project = {
   slug: string; name: string; tagline: string; description: string;
   status: 'live' | 'building' | 'open-source';
   tier: 'flagship' | 'lab';
-  accent: string;            // hex; drives theme variables
-  year: number;              // newest-first ordering
+  accent: string;            // hex (#rgb or #rrggbb); drives theme variables
   url: string;
   links?: { label: string; href: string }[];
   stack: string[];
   visual?: string;           // key of a registered mini-animation; fallback = generated ink motif in accent
 };
 ```
-Chapters, nav rail, theme shifts, OG/JSON-LD structured data are all **derived** from this array.
+Array order **is** the order (newest first; no date field). Ship numbers count up from the oldest, so a newly added project gets the highest number. Chapters, nav rail and theme shifts are all **derived** from this array.
 Layout code must not reference any product by name.
 
 **Initial data:** Inspyry (flagship, live), rydd.club (flagship, live), and Lab: buffer-api-skill,
@@ -109,17 +108,17 @@ rydd: "plan a group ride, share one link, see everyone live").
 
 ## 6. Housekeeping
 - Domain: `drjzlyan.com` in `public/CNAME`, `index.html` canonical/OG/Twitter, `DEPLOY.md` (done); add sitemap/robots on the new domain. Blog links use `blogs.drjzlyan.com` (done).
-- Delete Flutter leftovers from the working tree (`lib/`, `build/`, `.dart_tool`, `.flutter-plugins*`, `.packages`, `.idea`) and gitignore them.
+- Gitignore the untracked Flutter leftovers (`lib/`, `build/`, `.dart_tool`, `.flutter-plugins*`, `.packages`). They are untracked, so they are deleted only with the owner's explicit OK.
 - Update README and DEPLOY.md to describe the new architecture and "how to add a project".
 
 ## 7. Verification
 - `tsc -b` and production build pass; bundle size within budget.
 - Chrome checks at 390px and 1440px: layout, console clean, scroll/snap behavior, dock, bottom sheet, reduced-motion path.
-- Adding a dummy `projects.ts` entry produces a new chapter, nav dot and theme with **no other edits**.
+- Adding a dummy `projects.ts` entry (covered by a unit test on the derivation functions) produces a new chapter, nav dot and theme with **no other edits**.
 
 ## 8. Out of scope (YAGNI)
 CMS, blog engine (stays at blogs.drjzlyan.com), contact form, analytics.
 
 ## 9. Open items
-- Role timeline and counter figures to be drawn from `public/resume.pdf` during implementation.
+- The role timeline uses only facts already on the current site (Omnissa, indie products, OpenClaw). Earlier roles can be added by the owner later in `src/data/profile.ts`.
 - Whether `brick-breaker` subdomain is retired entirely (assumed: just hidden from the site).
