@@ -26,7 +26,7 @@ export const profile = {
     },
   ],
   links: {
-    github: 'https://github.com/dhiraj-salian',
+    github: 'https://github.com/drjzlyan',
     linkedin: 'https://linkedin.com/in/dhiraj-salian',
     email: 'mailto:dhirajsalian1996@gmail.com',
     blog: 'https://blogs.drjzlyan.com',

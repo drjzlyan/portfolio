@@ -52,7 +52,7 @@ export const projects: Project[] = [
     status: 'open-source',
     tier: 'lab',
     accent: '#2ebe9c',
-    url: 'https://github.com/dhiraj-salian/buffer-api-skill',
+    url: 'https://github.com/drjzlyan/buffer-api-skill',
     stack: ['Python', 'GraphQL'],
   },
   {
@@ -64,7 +64,7 @@ export const projects: Project[] = [
     status: 'open-source',
     tier: 'lab',
     accent: '#22d3ee',
-    url: 'https://github.com/dhiraj-salian/openclaw-nvidia-speech',
+    url: 'https://github.com/drjzlyan/openclaw-nvidia-speech',
     stack: ['npm', 'Magpie', 'Parakeet'],
   },
   {
@@ -76,7 +76,7 @@ export const projects: Project[] = [
     status: 'open-source',
     tier: 'lab',
     accent: '#f472b6',
-    url: 'https://github.com/dhiraj-salian/inspyry-vector-generator-skill',
+    url: 'https://github.com/drjzlyan/inspyry-vector-generator-skill',
     stack: ['Agent skill', 'SVG'],
   },
 ];

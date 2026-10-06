@@ -25,7 +25,7 @@ Configure these DNS records with your domain registrar:
 
 | Type  | Name  | Value                        |
 |-------|-------|------------------------------|
-| CNAME | `www` | `dhiraj-salian.github.io`   |
+| CNAME | `www` | `drjzlyan.github.io`   |
 
 ## HTTPS
 
