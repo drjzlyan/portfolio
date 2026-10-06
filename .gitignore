@@ -24,3 +24,12 @@ Thumbs.db
 
 # Vite
 .vite/
+/.superpowers/
+
+# Legacy Flutter artifacts (untracked; delete only with owner's OK)
+/lib/
+/build/
+/.dart_tool/
+.flutter-plugins
+.flutter-plugins-dependencies
+.packages
