@@ -13,8 +13,6 @@
     "@fontsource-variable/geist": "^5.3.0",
     "@fontsource-variable/jetbrains-mono": "^5.3.0",
     "@fontsource/instrument-serif": "^5.3.0",
-    "@react-three/drei": "^9.117.3",
-    "@react-three/fiber": "^8.17.10",
     "clsx": "^2.1.1",
     "framer-motion": "^11.15.0",
     "gsap": "^3.12.7",
@@ -22,13 +20,11 @@
     "lucide-react": "^0.468.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
-    "tailwind-merge": "^2.6.0",
-    "three": "^0.170.0"
+    "tailwind-merge": "^2.6.0"
   },
   "devDependencies": {
     "@types/react": "^18.3.18",
     "@types/react-dom": "^18.3.5",
-    "@types/three": "^0.170.0",
     "@vitejs/plugin-react": "^4.3.4",
     "autoprefixer": "^10.4.20",
     "postcss": "^8.4.49",
