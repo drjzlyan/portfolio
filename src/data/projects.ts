@@ -21,7 +21,7 @@ export const projects: Project[] = [
   },
   {
     slug: 'inspyry',
-    name: 'Inspyry',
+    name: 'inspyry.com',
     tagline: 'Type an idea. Get a cut-ready SVG.',
     description:
       'AI SVG generator on Cloudflare. Single-pass raster → vector pipeline with VTracer WASM. Flat colours, closed paths, transparent background. Production SaaS with a REST API and MCP server.',
