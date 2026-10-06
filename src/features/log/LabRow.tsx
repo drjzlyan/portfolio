@@ -33,7 +33,7 @@ export function LabRow({ labs, numbers, onOpen }: Props) {
         role="region"
         aria-label="Lab projects"
         tabIndex={0}
-        className="mt-8 flex snap-x snap-mandatory gap-4 overflow-x-auto px-5 pb-4 [scrollbar-width:none] md:px-12 [&::-webkit-scrollbar]:hidden"
+        className="mt-8 flex snap-x snap-mandatory gap-4 overflow-x-auto px-5 pb-4 row-scroll md:px-12"
       >
         {labs.map((p) => (
           <article

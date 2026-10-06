@@ -4,6 +4,7 @@ import {
   burst,
   createParticles,
   particleCount,
+  shouldResample,
   step,
   tiltToGravity,
   type Mode,
@@ -45,6 +46,8 @@ export default function InkField({ start }: { start: boolean }) {
     let pressTimer = 0;
     let resizeTimer = 0;
     let tiltAsked = false;
+    let measured: { w: number; h: number } | null = null;
+    let generation = 0;
 
     const toForm = (ms: number) => {
       window.clearTimeout(formTimer);
@@ -55,9 +58,13 @@ export default function InkField({ start }: { start: boolean }) {
 
     const setup = async () => {
       const rect = canvas.getBoundingClientRect();
-      w = Math.round(rect.width);
-      h = Math.round(rect.height);
-      if (w === 0 || h === 0) return;
+      const next = { w: Math.round(rect.width), h: Math.round(rect.height) };
+      if (next.w === 0 || next.h === 0) return;
+      if (!shouldResample(measured, next)) return;
+      measured = next;
+      w = next.w;
+      h = next.h;
+      const mine = ++generation;
       canvas.width = w * dpr;
       canvas.height = h * dpr;
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
@@ -65,7 +72,7 @@ export default function InkField({ start }: { start: boolean }) {
       mode = 'flow';
       const lines = w < 640 ? ['Dhiraj', 'Salian'] : ['Dhiraj Salian'];
       const pts = await sampleTextPoints(lines, w, h);
-      if (disposed) return;
+      if (disposed || mine !== generation) return;
       assignTargets(particles, pts);
       toForm(700);
     };
@@ -73,17 +80,9 @@ export default function InkField({ start }: { start: boolean }) {
     const loop = (now: number) => {
       raf = 0;
       if (disposed || !visible) return;
-      const dt = (now - last) / 1000;
+      const dt = Math.max(0, (now - last) / 1000);
       last = now;
-      if (dt > 1 / 40) {
-        slowFrames++;
-        if (slowFrames > 30 && particles.length > 600) {
-          particles.length = Math.max(600, Math.floor(particles.length * 0.7));
-          slowFrames = 0;
-        }
-      } else {
-        slowFrames = Math.max(0, slowFrames - 1);
-      }
+      const workStart = performance.now();
       step(particles, mode, now / 1000, dt, pointer, { w, h }, gravity);
 
       if (frame++ % 10 === 0) {
@@ -95,6 +94,17 @@ export default function InkField({ start }: { start: boolean }) {
       ctx.globalCompositeOperation = 'source-over';
       ctx.fillStyle = color;
       for (const p of particles) ctx.fillRect(p.x, p.y, 1.7, 1.7);
+
+      // Adapt on real work time (not rAF interval): 30Hz battery-saver displays are not "slow".
+      if (performance.now() - workStart > 12) {
+        slowFrames++;
+        if (slowFrames > 30 && particles.length > 600) {
+          particles.length = Math.max(600, Math.floor(particles.length * 0.7));
+          slowFrames = 0;
+        }
+      } else {
+        slowFrames = Math.max(0, slowFrames - 1);
+      }
       raf = requestAnimationFrame(loop);
     };
     const kick = () => {
@@ -114,12 +124,15 @@ export default function InkField({ start }: { start: boolean }) {
     };
     const enableTilt = async () => {
       if (tiltAsked || !coarse) return;
-      tiltAsked = true;
       const D = (window as unknown as { DeviceOrientationEvent?: DeviceOrientationCtor }).DeviceOrientationEvent;
       if (!D) return;
       try {
         if (typeof D.requestPermission === 'function') {
-          if ((await D.requestPermission()) !== 'granted') return;
+          const answer = await D.requestPermission();
+          tiltAsked = true; // a definite answer: don't ask again this session
+          if (answer !== 'granted') return;
+        } else {
+          tiltAsked = true;
         }
         window.addEventListener('deviceorientation', onTilt);
       } catch {
@@ -130,7 +143,6 @@ export default function InkField({ start }: { start: boolean }) {
     const onDown = (e: PointerEvent) => {
       const p = local(e);
       Object.assign(pointer, p, { active: true });
-      void enableTilt();
       burst(particles, p, 6);
       window.clearTimeout(pressTimer);
       pressTimer = window.setTimeout(() => {
@@ -149,12 +161,15 @@ export default function InkField({ start }: { start: boolean }) {
       pointer.active = false;
       window.clearTimeout(pressTimer);
     };
+    // iOS only treats touchend/click (not pointerdown) as a permission-granting user activation
+    const onTap = () => void enableTilt();
 
     canvas.addEventListener('pointerdown', onDown);
     canvas.addEventListener('pointermove', onMove);
     canvas.addEventListener('pointerup', onUp);
     canvas.addEventListener('pointerleave', onUp);
     canvas.addEventListener('pointercancel', onUp);
+    canvas.addEventListener('click', onTap);
 
     const io = new IntersectionObserver(([entry]) => {
       visible = !!entry?.isIntersecting;
@@ -184,6 +199,7 @@ export default function InkField({ start }: { start: boolean }) {
       canvas.removeEventListener('pointerup', onUp);
       canvas.removeEventListener('pointerleave', onUp);
       canvas.removeEventListener('pointercancel', onUp);
+      canvas.removeEventListener('click', onTap);
     };
   }, [start]);
 

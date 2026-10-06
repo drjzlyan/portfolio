@@ -4,6 +4,7 @@ import {
   buildSections,
   chapterId,
   pickVisual,
+  sectionIdFor,
   shipNumbers,
   sortProjects,
   splitTiers,
@@ -93,5 +94,14 @@ describe('pickVisual', () => {
   it('falls back for undefined and unknown keys', () => {
     expect(pickVisual(undefined, { x: 'X' }, fallback)).toBe(fallback);
     expect(pickVisual('nope', { x: 'X' }, fallback)).toBe(fallback);
+  });
+});
+
+describe('sectionIdFor', () => {
+  it('points flagships at their own chapter', () => {
+    expect(sectionIdFor(make('a', 'flagship'))).toBe(chapterId('a'));
+  });
+  it('points labs at the shared lab chapter (labs have no chapter of their own)', () => {
+    expect(sectionIdFor(make('b', 'lab'))).toBe('lab');
   });
 });

@@ -54,6 +54,11 @@ export interface Section {
 
 export const chapterId = (slug: string) => `p-${slug}`;
 
+/** Id of the section that shows `p`: flagships own a chapter; labs live in the shared lab chapter. */
+export function sectionIdFor(p: Project): string {
+  return p.tier === 'lab' ? 'lab' : chapterId(p.slug);
+}
+
 export function buildSections(list: readonly Project[]): Section[] {
   const { flagships, labs } = splitTiers(list);
   const sections: Section[] = [{ id: 'hero', label: 'Intro', kind: 'hero', accent: DEFAULT_ACCENT }];

@@ -18,13 +18,18 @@ export default function DetailSheet({ project, onClose }: Props) {
       if (e.key === 'Escape') onClose();
     };
     window.addEventListener('keydown', onKey);
+    const opener = document.activeElement as HTMLElement | null;
+    const behind = [document.getElementById('main'), document.querySelector('nav[aria-label="Chapters"]')];
+    behind.forEach((el) => el?.setAttribute('inert', ''));
     pauseScroll();
     const prev = document.documentElement.style.overflow;
     document.documentElement.style.overflow = 'hidden';
     return () => {
       window.removeEventListener('keydown', onKey);
       document.documentElement.style.overflow = prev;
+      behind.forEach((el) => el?.removeAttribute('inert'));
       resumeScroll();
+      opener?.focus?.();
     };
   }, [project, onClose]);
 
@@ -43,6 +48,7 @@ export default function DetailSheet({ project, onClose }: Props) {
           <motion.div
             key="sheet"
             role="dialog"
+            data-lenis-prevent
             aria-modal="true"
             aria-labelledby="sheet-title"
             className="fixed inset-x-0 bottom-0 z-[61] mx-auto max-h-[85svh] w-full max-w-2xl overflow-y-auto rounded-t-3xl border border-white/10 bg-ink-800 p-6 pb-10"

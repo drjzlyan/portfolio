@@ -26,7 +26,7 @@ export function Dock({ sections }: { sections: Section[] }) {
       aria-label="Chapters"
       className="fixed inset-x-4 bottom-4 z-50 mx-auto flex max-w-md items-center justify-between gap-3 rounded-full border border-white/10 bg-ink-900/70 px-4 py-2 backdrop-blur-xl md:inset-x-auto md:bottom-auto md:left-5 md:top-1/2 md:max-w-none md:-translate-y-1/2 md:flex-col md:px-2 md:py-4"
     >
-      <ul className="flex items-center gap-1 md:flex-col">
+      <ul className="flex min-w-0 items-center gap-1 overflow-x-auto md:max-h-[70svh] md:flex-col md:overflow-y-auto [&::-webkit-scrollbar]:hidden [scrollbar-width:none]">
         {sections.map((s) => {
           const on = s.id === active;
           return (

@@ -1,6 +1,6 @@
 import { lazy, Suspense, useRef } from 'react';
 import { profile } from '@/data/profile';
-import { chapterId, DEFAULT_ACCENT, type Project } from '@/features/log/model';
+import { DEFAULT_ACCENT, sectionIdFor, type Project } from '@/features/log/model';
 import { useAccentOnVisible } from '@/features/log/useAccent';
 import { scrollToId } from '@/lib/scroll';
 import { useReducedMotion } from '@/lib/useReducedMotion';
@@ -50,7 +50,7 @@ export function Hero({ start, latest }: { start: boolean; latest?: Project }) {
         {latest && (
           <button
             type="button"
-            onClick={() => scrollToId(chapterId(latest.slug))}
+            onClick={() => scrollToId(sectionIdFor(latest))}
             className="pointer-events-auto btn-ghost mt-6"
           >
             <span className="inline-block h-2 w-2 rounded-full bg-accent" aria-hidden="true" />

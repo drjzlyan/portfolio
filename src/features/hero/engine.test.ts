@@ -5,6 +5,7 @@ import {
   burst,
   createParticles,
   particleCount,
+  shouldResample,
   step,
   tiltToGravity,
   type Vec,
@@ -89,5 +90,23 @@ describe('tiltToGravity', () => {
   });
   it('treats a phone held at ~45deg beta as neutral', () => {
     expect(tiltToGravity(0, 45).y).toBeCloseTo(0);
+  });
+});
+
+describe('shouldResample', () => {
+  it('resamples on first measurement', () => {
+    expect(shouldResample(null, { w: 390, h: 700 })).toBe(true);
+  });
+  it('ignores identical size', () => {
+    expect(shouldResample({ w: 390, h: 700 }, { w: 390, h: 700 })).toBe(false);
+  });
+  it('ignores mobile address-bar height jitter', () => {
+    expect(shouldResample({ w: 390, h: 700 }, { w: 390, h: 760 })).toBe(false);
+  });
+  it('resamples on a width change (rotation / window resize)', () => {
+    expect(shouldResample({ w: 390, h: 700 }, { w: 844, h: 390 })).toBe(true);
+  });
+  it('resamples on a large height change', () => {
+    expect(shouldResample({ w: 1200, h: 700 }, { w: 1200, h: 900 })).toBe(true);
   });
 });

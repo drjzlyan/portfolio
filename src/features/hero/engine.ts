@@ -104,3 +104,15 @@ const clamp = (v: number) => Math.max(-1, Math.min(1, v));
 export function tiltToGravity(gamma: number | null | undefined, beta: number | null | undefined): Vec {
   return { x: clamp((gamma ?? 0) / 45), y: clamp(((beta ?? 45) - 45) / 45) };
 }
+
+const RESAMPLE_HEIGHT_DELTA = 120;
+
+/** Mobile address bars change the viewport height by < ~100px; that must not replay the intro. */
+export function shouldResample(
+  prev: { w: number; h: number } | null,
+  next: { w: number; h: number },
+): boolean {
+  if (!prev) return true;
+  if (prev.w !== next.w) return true;
+  return Math.abs(prev.h - next.h) >= RESAMPLE_HEIGHT_DELTA;
+}

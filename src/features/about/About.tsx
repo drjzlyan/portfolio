@@ -95,7 +95,7 @@ export function About({ projects }: { projects: Project[] }) {
         role="region"
         aria-label="Timeline"
         tabIndex={0}
-        className="-mx-5 mt-10 flex snap-x gap-4 overflow-x-auto px-5 pb-2 [scrollbar-width:none] md:mx-0 md:px-0 [&::-webkit-scrollbar]:hidden"
+        className="-mx-5 mt-10 flex snap-x gap-4 overflow-x-auto px-5 pb-2 row-scroll md:mx-0 md:px-0"
       >
         {profile.timeline.map((t) => (
           <article key={t.title + t.org} className="w-[72vw] max-w-xs shrink-0 snap-start rounded-2xl border border-white/10 bg-ink-900/60 p-5 md:w-72">
