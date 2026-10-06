@@ -32,6 +32,18 @@ export const projects: Project[] = [
     stack: ['Cloudflare', 'VTracer WASM'],
   },
   {
+    slug: 'guhio',
+    name: 'guhio',
+    tagline: 'A password vault for humans and agents.',
+    description:
+      'Local encrypted password vault for agent workflows: humans store credentials outside the agent context, and agents use them by name without ever seeing the plaintext. CLI, web dashboard and an agent skill. On PyPI.',
+    status: 'open-source',
+    tier: 'lab',
+    accent: '#f59e0b',
+    url: 'https://github.com/drjzlyan/guhio',
+    stack: ['Python', 'PyPI'],
+  },
+  {
     slug: 'buffer-api-skill',
     name: 'buffer-api-skill',
     tagline: 'Post, schedule and manage Buffer from an agent.',
