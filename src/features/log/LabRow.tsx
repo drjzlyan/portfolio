@@ -19,7 +19,7 @@ export function LabRow({ labs, numbers, onOpen }: Props) {
       ref={ref}
       id="lab"
       aria-labelledby="lab-title"
-      className="snap-chapter relative flex min-h-[100svh] flex-col justify-center overflow-hidden py-24"
+      className="snap-chapter relative flex min-h-[100svh] flex-col justify-center overflow-hidden pb-32 pt-24"
     >
       <div className="px-5 md:px-12">
         <p className="font-mono text-xs uppercase tracking-[0.2em] text-mute">Lab</p>
