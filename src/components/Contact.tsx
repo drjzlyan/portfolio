@@ -20,7 +20,7 @@ const socials = [
   },
   {
     label: 'Blog',
-    href: 'https://blogs.dhirajsalian.com',
+    href: 'https://blogs.drjzlyan.com',
     icon: Pen,
   },
 ];

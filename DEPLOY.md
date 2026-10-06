@@ -1,4 +1,4 @@
-# Deployment Guide — dhirajsalian.com
+# Deployment Guide — drjzlyan.com
 
 This site deploys to GitHub Pages via the `.github/workflows/deploy.yml` workflow.
 
@@ -12,7 +12,7 @@ This site deploys to GitHub Pages via the `.github/workflows/deploy.yml` workflo
 
 Configure these DNS records with your domain registrar:
 
-### Apex domain (`dhirajsalian.com`)
+### Apex domain (`drjzlyan.com`)
 
 | Type | Name  | Value                    |
 |------|-------|--------------------------|
@@ -36,7 +36,7 @@ After DNS propagates and GitHub Pages provisions the certificate:
 
 ## Custom Domain
 
-The `public/CNAME` file contains `dhirajsalian.com`. Vite copies all `public/` files to `dist/`, so the CNAME will be present in the build output automatically.
+The `public/CNAME` file contains `drjzlyan.com`. Vite copies all `public/` files to `dist/`, so the CNAME will be present in the build output automatically.
 
 ## Local Development
 

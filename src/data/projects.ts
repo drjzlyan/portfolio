@@ -45,13 +45,4 @@ export const projects: Project[] = [
     gradient: 'from-accent-indigo/20 to-accent-rose/10',
     svgId: 'skill',
   },
-  {
-    title: 'Brick Breaker',
-    description: '2D Unity game exploring game-dev fundamentals.',
-    url: 'https://brick-breaker.dhirajsalian.com',
-    color: '#f59e0b',
-    colorLight: '#fde047',
-    gradient: 'from-accent-amber/20 to-accent-amber-light/10',
-    svgId: 'brick',
-  },
 ];

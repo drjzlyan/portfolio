@@ -49,12 +49,12 @@ export function About() {
               <span className="text-gradient-cyan">openclaw-nvidia-speech</span>.
               I write about AI and ML at{' '}
               <a
-                href="https://blogs.dhirajsalian.com"
+                href="https://blogs.drjzlyan.com"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="underline decoration-text-muted/40 underline-offset-2 hover:text-text-primary hover:decoration-text-secondary transition-colors"
               >
-                blogs.dhirajsalian.com
+                blogs.drjzlyan.com
               </a>
               .
             </p>
