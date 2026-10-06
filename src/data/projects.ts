@@ -1,48 +1,70 @@
-export interface Project {
-  title: string;
-  description: string;
-  url: string;
-  color: string;
-  colorLight: string;
-  gradient: string;
-  svgId: string;
-}
+import type { Project } from '@/features/log/model';
 
+/**
+ * The Ship Log. Newest first: to add a product, put a new entry at the TOP.
+ * Chapters, dock dots, theme shifts and ship numbers are all derived from this array.
+ * - tier 'flagship' = full-screen chapter; 'lab' = card in the shared Lab row.
+ * - accent = #rgb or #rrggbb colour the whole page takes on in that chapter.
+ */
 export const projects: Project[] = [
   {
-    title: 'Inspyry',
-    description: 'AI SVG generator on Cloudflare. Single-pass raster → vector pipeline with VTracer WASM. Production SaaS.',
+    slug: 'rydd',
+    name: 'rydd.club',
+    tagline: 'Plan a group ride. Share one link. See everyone live.',
+    description:
+      'Group ride coordination: one shareable link and live locations for everyone on the ride.',
+    status: 'live',
+    tier: 'flagship',
+    accent: '#facc15',
+    url: 'https://rydd.club',
+    stack: [],
+  },
+  {
+    slug: 'inspyry',
+    name: 'Inspyry',
+    tagline: 'Type an idea. Get a cut-ready SVG.',
+    description:
+      'AI SVG generator on Cloudflare. Single-pass raster → vector pipeline with VTracer WASM. Flat colours, closed paths, transparent background. Production SaaS with a REST API and MCP server.',
+    status: 'live',
+    tier: 'flagship',
+    accent: '#7c5cff',
     url: 'https://inspyry.com',
-    color: '#7c5cff',
-    colorLight: '#a78bfa',
-    gradient: 'from-accent-indigo/20 to-accent-cyan/10',
-    svgId: 'inspyry',
+    stack: ['Cloudflare', 'VTracer WASM'],
   },
   {
-    title: 'buffer-api-skill',
-    description: 'OpenClaw-compatible agent skill for Buffer’s GraphQL API — post, schedule, delete, channels. Python, MIT.',
+    slug: 'buffer-api-skill',
+    name: 'buffer-api-skill',
+    tagline: 'Post, schedule and manage Buffer from an agent.',
+    description:
+      'OpenClaw-compatible agent skill for Buffer’s GraphQL API: post, schedule, delete, channels. MIT.',
+    status: 'open-source',
+    tier: 'lab',
+    accent: '#2ebe9c',
     url: 'https://github.com/dhiraj-salian/buffer-api-skill',
-    color: '#2EBE9C',
-    colorLight: '#5DD3B5',
-    gradient: 'from-accent-emerald/20 to-accent-cyan/10',
-    svgId: 'buffer',
+    stack: ['Python', 'GraphQL'],
   },
   {
-    title: 'openclaw-nvidia-speech',
-    description: 'OpenClaw plugin for NVIDIA TTS (Magpie) and STT (Parakeet). Zero deps, published to npm.',
+    slug: 'openclaw-nvidia-speech',
+    name: 'openclaw-nvidia-speech',
+    tagline: 'NVIDIA text-to-speech and speech-to-text for OpenClaw.',
+    description:
+      'OpenClaw plugin for NVIDIA TTS (Magpie) and STT (Parakeet). Zero dependencies, published to npm.',
+    status: 'open-source',
+    tier: 'lab',
+    accent: '#22d3ee',
     url: 'https://github.com/dhiraj-salian/openclaw-nvidia-speech',
-    color: '#22d3ee',
-    colorLight: '#67e8f9',
-    gradient: 'from-accent-cyan/20 to-accent-sky/10',
-    svgId: 'nvidia',
+    stack: ['npm', 'Magpie', 'Parakeet'],
   },
   {
-    title: 'inspyry-vector-generator-skill',
-    description: 'Agent skill for creating vector images — logos, icons, mascots, illustrations. MIT licensed.',
+    slug: 'inspyry-vector-generator-skill',
+    name: 'inspyry-vector-generator-skill',
+    tagline: 'Logos, icons and mascots as vectors, from an agent.',
+    description:
+      'Agent skill for creating vector images: logos, icons, mascots, illustrations. MIT licensed.',
+    status: 'open-source',
+    tier: 'lab',
+    accent: '#f472b6',
     url: 'https://github.com/dhiraj-salian/inspyry-vector-generator-skill',
-    color: '#a78bfa',
-    colorLight: '#c4b5fd',
-    gradient: 'from-accent-indigo/20 to-accent-rose/10',
-    svgId: 'skill',
+    stack: ['Agent skill', 'SVG'],
   },
 ];
