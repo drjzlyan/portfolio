@@ -58,7 +58,7 @@ export function Contact() {
         ))}
       </ul>
 
-      <p className="mt-16 font-mono text-[11px] tracking-wider text-mute">Built by Dhiraj · 2026</p>
+      <p className="mt-16 font-mono text-[11px] tracking-wider text-mute">Built by {profile.name.split(' ')[0]} · 2026</p>
     </section>
   );
 }

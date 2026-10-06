@@ -4,6 +4,8 @@ import {
   assignTargets,
   burst,
   createParticles,
+  movedBeyond,
+  nameLines,
   particleCount,
   shouldResample,
   step,
@@ -108,5 +110,26 @@ describe('shouldResample', () => {
   });
   it('resamples on a large height change', () => {
     expect(shouldResample({ w: 1200, h: 700 }, { w: 1200, h: 900 })).toBe(true);
+  });
+});
+
+describe('nameLines', () => {
+  it('keeps the name on one line when there is room', () => {
+    expect(nameLines('Dhiraj Salian', false)).toEqual(['Dhiraj Salian']);
+  });
+  it('splits first word / rest when narrow', () => {
+    expect(nameLines('Dhiraj Salian', true)).toEqual(['Dhiraj', 'Salian']);
+    expect(nameLines('Mary Jane Watson', true)).toEqual(['Mary', 'Jane Watson']);
+  });
+  it('never returns an empty line for a single-word or blank name', () => {
+    expect(nameLines('Dhiraj', true)).toEqual(['Dhiraj']);
+    expect(nameLines('  ', true)).toEqual(['']);
+  });
+});
+
+describe('movedBeyond', () => {
+  it('is false for a tap-sized wobble and true for a drag', () => {
+    expect(movedBeyond({ x: 10, y: 10 }, { x: 14, y: 12 }, 8)).toBe(false);
+    expect(movedBeyond({ x: 10, y: 10 }, { x: 30, y: 10 }, 8)).toBe(true);
   });
 });

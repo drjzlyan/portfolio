@@ -3,6 +3,8 @@ import {
   assignTargets,
   burst,
   createParticles,
+  movedBeyond,
+  nameLines,
   particleCount,
   shouldResample,
   step,
@@ -18,7 +20,7 @@ interface DeviceOrientationCtor {
   requestPermission?: () => Promise<'granted' | 'denied'>;
 }
 
-export default function InkField({ start }: { start: boolean }) {
+export default function InkField({ start, name }: { start: boolean; name: string }) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
   useEffect(() => {
@@ -46,6 +48,7 @@ export default function InkField({ start }: { start: boolean }) {
     let pressTimer = 0;
     let resizeTimer = 0;
     let tiltAsked = false;
+    let downAt: Vec = { x: 0, y: 0 };
     let measured: { w: number; h: number } | null = null;
     let generation = 0;
 
@@ -70,7 +73,7 @@ export default function InkField({ start }: { start: boolean }) {
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
       particles = createParticles(particleCount(w, coarse), w, h);
       mode = 'flow';
-      const lines = w < 640 ? ['Dhiraj', 'Salian'] : ['Dhiraj Salian'];
+      const lines = nameLines(name, w < 640);
       const pts = await sampleTextPoints(lines, w, h);
       if (disposed || mine !== generation) return;
       assignTargets(particles, pts);
@@ -143,6 +146,7 @@ export default function InkField({ start }: { start: boolean }) {
     const onDown = (e: PointerEvent) => {
       const p = local(e);
       Object.assign(pointer, p, { active: true });
+      downAt = p;
       burst(particles, p, 6);
       window.clearTimeout(pressTimer);
       pressTimer = window.setTimeout(() => {
@@ -155,6 +159,7 @@ export default function InkField({ start }: { start: boolean }) {
       const p = local(e);
       pointer.x = p.x;
       pointer.y = p.y;
+      if (movedBeyond(downAt, p, 8)) window.clearTimeout(pressTimer);
       if (e.pointerType === 'mouse') pointer.active = true;
     };
     const onUp = () => {
@@ -201,7 +206,7 @@ export default function InkField({ start }: { start: boolean }) {
       canvas.removeEventListener('pointercancel', onUp);
       canvas.removeEventListener('click', onTap);
     };
-  }, [start]);
+  }, [start, name]);
 
   return <canvas ref={canvasRef} aria-hidden="true" className="absolute inset-0 h-full w-full touch-pan-y" />;
 }

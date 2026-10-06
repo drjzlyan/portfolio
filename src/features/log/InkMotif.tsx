@@ -19,8 +19,9 @@ export function InkMotif({ slug, className }: VisualProps) {
 
   useEffect(() => {
     if (reduced) return;
+    let tween: gsap.core.Tween | undefined;
     const ctx = gsap.context(() => {
-      gsap.to('.blob', {
+      tween = gsap.to('.blob', {
         rotation: (i: number) => (i % 2 ? -360 : 360),
         svgOrigin: '200 150',
         duration: (i: number) => 38 + i * 14,
@@ -28,7 +29,13 @@ export function InkMotif({ slug, className }: VisualProps) {
         ease: 'none',
       });
     }, ref);
-    return () => ctx.revert();
+    // Only animate while on screen
+    const io = new IntersectionObserver(([entry]) => tween?.paused(!entry?.isIntersecting));
+    if (ref.current) io.observe(ref.current);
+    return () => {
+      io.disconnect();
+      ctx.revert();
+    };
   }, [reduced]);
 
   return (

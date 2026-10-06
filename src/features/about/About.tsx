@@ -1,44 +1,15 @@
-import { useEffect, useRef } from 'react';
+import { useRef } from 'react';
 import { profile } from '@/data/profile';
 import profileImg from '@/assets/profile.jpg';
 import { DEFAULT_ACCENT, type Project } from '@/features/log/model';
 import { useAccentOnVisible } from '@/features/log/useAccent';
-import { gsap } from '@/lib/scroll';
-import { useReducedMotion } from '@/lib/useReducedMotion';
+import { CountUp } from '@/components/CountUp';
+import { useDragScroll } from '@/lib/useDragScroll';
 
 function Counter({ to, suffix = '', label }: { to: number; suffix?: string; label: string }) {
-  const ref = useRef<HTMLSpanElement>(null);
-  const reduced = useReducedMotion();
-
-  useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-    if (reduced) {
-      el.textContent = `${to}${suffix}`;
-      return;
-    }
-    const obj = { v: 0 };
-    const tween = gsap.to(obj, {
-      v: to,
-      duration: 1.4,
-      ease: 'power2.out',
-      scrollTrigger: { trigger: el, start: 'top 85%', once: true },
-      onUpdate: () => {
-        el.textContent = `${Math.round(obj.v)}${suffix}`;
-      },
-    });
-    return () => {
-      tween.scrollTrigger?.kill();
-      tween.kill();
-    };
-  }, [to, suffix, reduced]);
-
   return (
     <div>
-      <span ref={ref} className="block font-display text-5xl italic text-accent">
-        {to}
-        {suffix}
-      </span>
+      <CountUp to={to} suffix={suffix} className="block font-display text-5xl italic text-accent" />
       <span className="font-mono text-[11px] uppercase tracking-wider text-mute">{label}</span>
     </div>
   );
@@ -47,6 +18,8 @@ function Counter({ to, suffix = '', label }: { to: number; suffix?: string; labe
 export function About({ projects }: { projects: Project[] }) {
   const ref = useRef<HTMLElement>(null);
   useAccentOnVisible(ref, DEFAULT_ACCENT);
+  const rowRef = useRef<HTMLDivElement>(null);
+  useDragScroll(rowRef);
   const live = projects.filter((p) => p.status === 'live').length;
 
   return (
@@ -92,6 +65,7 @@ export function About({ projects }: { projects: Project[] }) {
       </div>
 
       <div
+        ref={rowRef}
         role="region"
         aria-label="Timeline"
         tabIndex={0}

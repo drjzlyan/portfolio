@@ -116,3 +116,13 @@ export function shouldResample(
   if (prev.w !== next.w) return true;
   return Math.abs(prev.h - next.h) >= RESAMPLE_HEIGHT_DELTA;
 }
+
+export function nameLines(name: string, narrow: boolean): string[] {
+  const words = name.trim().split(/\s+/).filter(Boolean);
+  if (!narrow || words.length < 2) return [words.join(' ')];
+  return [words[0]!, words.slice(1).join(' ')];
+}
+
+export function movedBeyond(a: Vec, b: Vec, threshold: number): boolean {
+  return Math.hypot(b.x - a.x, b.y - a.y) > threshold;
+}

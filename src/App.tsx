@@ -1,4 +1,5 @@
 import { lazy, Suspense, useCallback, useEffect, useState } from 'react';
+import { Cursor } from '@/components/Cursor';
 import { Dock } from '@/components/Dock';
 import { Loader } from '@/components/Loader';
 import { projects } from '@/data/projects';
@@ -37,6 +38,10 @@ export default function App() {
   }, [ready]);
 
   useEffect(() => {
+    if (ready) ScrollTrigger.refresh();
+  }, [ready]);
+
+  useEffect(() => {
     void document.fonts?.ready.then(() => ScrollTrigger.refresh());
   }, []);
 
@@ -44,8 +49,9 @@ export default function App() {
     <>
       <Loader onDone={onLoaderDone} />
       <div className="grain" aria-hidden="true" />
+      <Cursor />
 
-      <main id="main">
+      <main id="main" tabIndex={-1} className="outline-none">
         <Hero start={ready} latest={ordered[0]} />
         {flagships.map((p) => (
           <Chapter key={p.slug} project={p} number={numbers.get(p.slug) ?? 0} onOpen={openProject} />

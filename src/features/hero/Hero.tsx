@@ -27,7 +27,7 @@ export function Hero({ start, latest }: { start: boolean; latest?: Project }) {
         />
       ) : (
         <Suspense fallback={null}>
-          <InkField start={start} />
+          <InkField start={start} name={profile.name} />
         </Suspense>
       )}
 
@@ -42,6 +42,16 @@ export function Hero({ start, latest }: { start: boolean; latest?: Project }) {
         {profile.name}
       </h1>
 
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute bottom-28 right-6 z-10 flex flex-col items-center gap-2 font-mono text-[10px] uppercase tracking-[0.2em] text-mute md:bottom-16 md:right-12"
+      >
+        <span style={{ writingMode: 'vertical-rl' }}>Scroll</span>
+        <span className="relative h-14 w-px overflow-hidden bg-white/15">
+          <span className="cue-dot absolute left-0 top-0 h-4 w-px bg-accent" />
+        </span>
+      </div>
+
       <div className="pointer-events-none relative z-10 max-w-xl">
         <p className="font-mono text-xs uppercase tracking-[0.2em] text-mute">
           {profile.role} · {profile.location}
@@ -51,7 +61,7 @@ export function Hero({ start, latest }: { start: boolean; latest?: Project }) {
           <button
             type="button"
             onClick={() => scrollToId(sectionIdFor(latest))}
-            className="pointer-events-auto btn-ghost mt-6"
+            className="pointer-events-auto btn-ghost mt-6 max-w-full text-left [overflow-wrap:anywhere]"
           >
             <span className="inline-block h-2 w-2 rounded-full bg-accent" aria-hidden="true" />
             Latest ship: {latest.name} ↓

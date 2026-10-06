@@ -1,5 +1,6 @@
 import { useRef } from 'react';
 import { applyAccent } from '@/lib/theme';
+import { useDragScroll } from '@/lib/useDragScroll';
 import type { Project } from './model';
 import { StatusChip } from './StatusChip';
 import { useAccentOnVisible } from './useAccent';
@@ -12,6 +13,8 @@ interface Props {
 
 export function LabRow({ labs, numbers, onOpen }: Props) {
   const ref = useRef<HTMLElement>(null);
+  const rowRef = useRef<HTMLDivElement>(null);
+  useDragScroll(rowRef);
   useAccentOnVisible(ref, labs[0]!.accent);
 
   return (
@@ -30,6 +33,7 @@ export function LabRow({ labs, numbers, onOpen }: Props) {
       </div>
 
       <div
+        ref={rowRef}
         role="region"
         aria-label="Lab projects"
         tabIndex={0}
@@ -38,8 +42,8 @@ export function LabRow({ labs, numbers, onOpen }: Props) {
         {labs.map((p) => (
           <article
             key={p.slug}
-            onPointerEnter={() => applyAccent(p.accent)}
-            onFocus={() => applyAccent(p.accent)}
+            onPointerEnter={() => applyAccent(p.accent, { wipe: false })}
+            onFocus={() => applyAccent(p.accent, { wipe: false })}
             className="flex w-[78vw] max-w-sm shrink-0 snap-center flex-col rounded-3xl border border-white/10 bg-ink-900/70 p-6 backdrop-blur md:w-80"
             style={{ borderTopColor: p.accent, borderTopWidth: 2 }}
           >
@@ -50,7 +54,7 @@ export function LabRow({ labs, numbers, onOpen }: Props) {
               <StatusChip status={p.status} />
             </div>
             <h3 className="mt-5 font-display text-3xl italic leading-tight [overflow-wrap:anywhere]">{p.name}</h3>
-            <p className="mt-2 text-paper/80">{p.tagline}</p>
+            <p className="mt-2 text-paper/80 [overflow-wrap:anywhere]">{p.tagline}</p>
             <div className="mt-auto flex gap-3 pt-6">
               <a className="btn-accent" href={p.url} target="_blank" rel="noopener noreferrer">
                 Open ↗

@@ -1,6 +1,7 @@
 import { useEffect, useRef } from 'react';
 import { Magnetic } from '@/components/Magnetic';
-import { gsap, ScrollTrigger } from '@/lib/scroll';
+import { CountUp } from '@/components/CountUp';
+import { gsap } from '@/lib/scroll';
 import { useReducedMotion } from '@/lib/useReducedMotion';
 import { chapterId, type Project } from './model';
 import { StatusChip } from './StatusChip';
@@ -44,11 +45,6 @@ export function Chapter({ project, number, onOpen }: Props) {
     return () => ctx.revert();
   }, [reduced]);
 
-  // Fonts/layout settle after mount; keep trigger positions accurate
-  useEffect(() => {
-    ScrollTrigger.refresh();
-  }, []);
-
   const id = chapterId(project.slug);
   return (
     <section
@@ -61,7 +57,7 @@ export function Chapter({ project, number, onOpen }: Props) {
         aria-hidden="true"
         className="big-no ghost-no pointer-events-none absolute -right-2 top-14 select-none font-display italic leading-none text-[clamp(10rem,52vw,34rem)]"
       >
-        {String(number).padStart(2, '0')}
+        <CountUp to={number} pad={2} />
       </span>
 
       <Visual
@@ -71,7 +67,7 @@ export function Chapter({ project, number, onOpen }: Props) {
 
       <div className="relative z-10 max-w-3xl">
         <div className="fade-up mb-4 flex flex-wrap items-center gap-2">
-          <span className="font-mono text-xs tracking-widest text-mute">No. {String(number).padStart(2, '0')}</span>
+          <span className="font-mono text-xs tracking-widest text-mute">No. <CountUp to={number} pad={2} /></span>
           <StatusChip status={project.status} />
         </div>
 
@@ -84,7 +80,7 @@ export function Chapter({ project, number, onOpen }: Props) {
           </span>
         </h2>
 
-        <p className="fade-up mt-4 max-w-xl text-lg text-paper/85 md:text-xl">{project.tagline}</p>
+        <p className="fade-up mt-4 max-w-xl text-lg text-paper/85 md:text-xl [overflow-wrap:anywhere]">{project.tagline}</p>
 
         {project.stack.length > 0 && (
           <ul className="fade-up mt-5 flex flex-wrap gap-2" aria-label="Stack">
@@ -98,7 +94,7 @@ export function Chapter({ project, number, onOpen }: Props) {
 
         <div className="fade-up mt-7 flex flex-wrap gap-3">
           <Magnetic>
-            <a className="btn-accent" href={project.url} target="_blank" rel="noopener noreferrer">
+            <a className="btn-accent max-w-full text-center [overflow-wrap:anywhere]" href={project.url} target="_blank" rel="noopener noreferrer">
               Visit {host(project.url)} ↗
             </a>
           </Magnetic>

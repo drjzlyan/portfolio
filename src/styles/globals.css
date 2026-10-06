@@ -85,6 +85,33 @@
     border-color: var(--accent);
   }
 
+  .cursor-dot {
+    border-color: var(--accent);
+    transition: transform 0.25s ease, background-color 0.25s ease;
+  }
+  [data-hot='1'] .cursor-dot {
+    transform: scale(2);
+    background: color-mix(in srgb, var(--accent) 20%, transparent);
+  }
+
+  [data-dragging] {
+    scroll-snap-type: none !important;
+    cursor: grabbing;
+    user-select: none;
+  }
+
+  .cue-dot {
+    animation: cue 1.8s ease-in-out infinite;
+  }
+  @keyframes cue {
+    from {
+      transform: translateY(-100%);
+    }
+    to {
+      transform: translateY(400%);
+    }
+  }
+
   .ghost-no {
     color: color-mix(in srgb, var(--accent) 14%, transparent);
   }
