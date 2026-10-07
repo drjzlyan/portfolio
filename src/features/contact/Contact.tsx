@@ -1,5 +1,5 @@
 import { useRef } from 'react';
-import { Download, Github, Linkedin, Mail, Pen } from 'lucide-react';
+import { Github, Linkedin, Mail, Pen } from 'lucide-react';
 import { Magnetic } from '@/components/Magnetic';
 import { profile } from '@/data/profile';
 import { DEFAULT_ACCENT } from '@/features/log/model';
@@ -37,9 +37,6 @@ export function Contact() {
             <Mail className="h-4 w-4" aria-hidden="true" /> Email me
           </a>
         </Magnetic>
-        <a className="btn-ghost" href={profile.links.resume} download>
-          <Download className="h-4 w-4" aria-hidden="true" /> Resume
-        </a>
       </div>
 
       <ul className="mt-8 flex gap-3" aria-label="Social links">

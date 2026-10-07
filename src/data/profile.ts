@@ -30,6 +30,5 @@ export const profile = {
     linkedin: 'https://linkedin.com/in/dhiraj-salian',
     email: 'mailto:dhirajsalian1996@gmail.com',
     blog: 'https://blogs.drjzlyan.com',
-    resume: '/resume.pdf',
   },
 } as const;
