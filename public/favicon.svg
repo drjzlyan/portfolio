@@ -1,7 +1,9 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none">
-  <rect width="64" height="64" rx="16" fill="#0a0c18"/>
-  <circle cx="32" cy="28" r="8" stroke="#7c5cff" stroke-width="2" fill="none"/>
-  <circle cx="32" cy="28" r="3" fill="#7c5cff"/>
-  <path d="M20 40 L32 52 L44 40" stroke="#22d3ee" stroke-width="2" fill="none" stroke-linecap="round"/>
-  <text x="32" y="58" text-anchor="middle" font-size="6" fill="#8a91a6" font-family="sans-serif">DS</text>
+  <title>Dhiraj Salian</title>
+  <rect width="64" height="64" rx="16" fill="#06070b"/>
+  <path d="M54.8 23.7 Q57.7 32.0 54.7 40.2 Q51.6 48.5 44.2 54.1 Q36.9 59.7 27.8 57.3 Q18.8 54.9 11.4 48.5 Q4.0 42.2 4.7 32.2 Q5.4 22.3 11.7 15.0 Q18.0 7.7 27.5 5.5 Q37.0 3.4 44.4 9.4 Q51.8 15.4 54.8 23.7 Z" fill="#ff5d3a" fill-opacity="0.28" stroke="#ff5d3a" stroke-opacity="0.7" stroke-width="1"/>
+  <path d="M49.9 25.4 Q52.1 32.0 49.9 38.6 Q47.7 45.2 41.4 47.3 Q35.1 49.4 28.4 49.6 Q21.7 49.9 17.3 44.4 Q12.9 39.0 13.0 32.0 Q13.0 25.1 17.9 20.6 Q22.8 16.1 29.2 14.1 Q35.5 12.1 41.6 15.5 Q47.7 18.8 49.9 25.4 Z" fill="#ff5d3a" fill-opacity="0.55"/>
+  <g transform="translate(32 32) skewX(-10) translate(-32 -32)">
+    <path fill-rule="evenodd" fill="#f3efe6" d="M23 18H33C42 18 47.5 24 47.5 32S42 46 33 46H23ZM30 23.5H33C37.5 23.5 40.5 27 40.5 32S37.5 40.5 33 40.5H30Z"/>
+  </g>
 </svg>
